@@ -3,7 +3,7 @@
  */
 const cards = ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plane-o", "fa-anchor", "fa-anchor", "fa-bolt", "fa-bolt", "fa-cube", "fa-cube", "fa-leaf", "fa-leaf", "fa-bicycle", "fa-bicycle", "fa-bomb", "fa-bomb"];
 
-const deck = document.querySelector('.card');
+const deck = document.querySelector('.deck');
 
 /*
  * Display the cards on the page
@@ -31,10 +31,12 @@ function newDeck() {
 	for (let i = 0; i < cards.length; i++) {
 		const newList = document.createElement('li');
 
-		newList.setAttribute('class', 'card fa fa-' + cardList[i]);
+		newList.setAttribute('class', 'card fa fa-' + cards[i]);
 		deck.appendChild(newList);
 	}
 }
+
+newDeck();
 
 /*
  * set up the event listener for a card. If a card is clicked:
