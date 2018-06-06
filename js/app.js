@@ -13,16 +13,14 @@ let timer;
 let resetTimer = 0;
 
 const restart = document.querySelector('.restart');
+const moveCounter = document.querySelector('.move-count');
+const modal = document.querySelector('.modal');
+const stars = document.querySelector('.stars');
+const moves = document.querySelector('.moves');
+
 
 //select card elements in the deck
 let deck = document.querySelector('.deck');
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -47,7 +45,7 @@ function newDeck() {
 	for (let i = 0; i < cards.length; i++) {
 		const newList = document.createElement('li');
 
-		newList.setAttribute('class', 'card fa fa-' + cards[i]);
+		newList.setAttribute('class', 'card fa ' + cards[i]);
 		deck.appendChild(newList);
 	}
 }
@@ -63,8 +61,8 @@ function newGame() {
 	seconds.innerText = 0;
 	minutes.innerText = 0;
 	stopTime();
-	newRaiting();
-	resetModal();
+	starRating();
+	closeModal();
 }
 
 // Event listener for a card click
@@ -96,6 +94,7 @@ function turnCard(event) {
 	event.target.classList.add('show');
 }
 
+// Start timer
 function startTime() {
 	timer = setInterval(function() {
 		seconds.innerText++;
@@ -108,10 +107,12 @@ function startTime() {
 	return timer;
 }
 
+// Stop timer
 function stopTime() {
 	clearInterval(timer);
 }
 
+// Checks if cards are matched or not
 function checkCards() {
 
 	if (openCards[0].classList.value === openCards[1].classList.value) {
@@ -125,6 +126,7 @@ function checkCards() {
 	}
 }
 
+// Count the moves
 function countMoves() {
 	moves.innerText++;
 
@@ -137,6 +139,7 @@ function countMoves() {
 	}
 }
 
+// Check if cards are matched
 function matched() {
 	openCards[0].classList.add('match');
 	openCards[1].classList.add('match');
@@ -144,10 +147,11 @@ function matched() {
 
 	if (endGame === 8) {
 		clearInterval(timer);
-		modal();
+		modalMsg();
 	}
 }
 
+// Check if cards are not matched
 function notMatched() {
 	openCards[0].classList.add('no-match');
 	openCards[1].classList.add('no-match');
@@ -158,15 +162,28 @@ function notMatched() {
 	}, (1000));
 }
 
+// Star rating
+function starRating() {
+	document.querySelector(".stars li:nth-child(1)").classList.remove("star-empty");
+	document.querySelector(".stars li:nth-child(2)").classList.remove("star-empty");
+}
 
+// Modal message
+function closeModal() {
+	const panel = document.querySelector(".score-panel");
+	modal.style.display = "none";
+    restart.appendChild(timer);
+    panel.prepend(stars);
+    panel.appendChild(time);
+    panel.appendChild(moveCounter);
+    panel.appendChild(restart);
+}
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function modalMsg() {
+	const winMessage = document.querySelector(".modal-message");
+	modal.style.display = "block";
+	winMessage.appendChild(restart);
+	winMessage.appendChild(stars);
+	winMessage.appendChild(timer);
+	winMessage.appendChild(moveCounter);
+}
