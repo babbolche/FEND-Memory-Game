@@ -13,10 +13,11 @@ let timer;
 let resetTimer = 0;
 
 const restart = document.querySelector('.restart');
-const moveCounter = document.querySelector('.move-count');
+const moveCounter = document.querySelector('.moves-count');
 const modal = document.querySelector('.modal');
 const stars = document.querySelector('.stars');
 const moves = document.querySelector('.moves');
+const time = document.querySelector('.timer');
 
 
 //select card elements in the deck
@@ -172,7 +173,7 @@ function starRating() {
 function closeModal() {
 	const panel = document.querySelector(".score-panel");
 	modal.style.display = "none";
-    restart.appendChild(timer);
+    restart.appendChild(time);
     panel.prepend(stars);
     panel.appendChild(time);
     panel.appendChild(moveCounter);
@@ -184,6 +185,6 @@ function modalMsg() {
 	modal.style.display = "block";
 	winMessage.appendChild(restart);
 	winMessage.appendChild(stars);
-	winMessage.appendChild(timer);
+	winMessage.appendChild(time);
 	winMessage.appendChild(moveCounter);
 }
