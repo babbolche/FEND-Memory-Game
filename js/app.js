@@ -77,18 +77,20 @@ function openCard(event) {
 		resetTimer = 1;
 	}
 	if (openCards.length > 1) {
-		return;
+		return true;
 	}
-
-if (event.target.tagName === 'LI') {
-	turnCard(event);
-	openCards.push(event.target);
-if (openCards.length === 2) {
-	checkCards();
-	countMoves();
+	if (event.target.tagName === 'LI') {
+		if(!event.target.classList.contains('open')) {
+			turnCard(event);
+	        openCards.push(event.target);
+		}
+	if (openCards.length === 2) {
+		checkCards();
+		countMoves();
 		}
 	}
 }
+
 
 function turnCard(event) {
 	event.target.classList.add('open');
