@@ -56,6 +56,7 @@ function newGame() {
 	deck.innerHTML = "";
 	shuffle(cards);
 	newDeck();
+	openCards = [];
 	endGame = 0;
 	moves.innerText = 0;
 	resetTimer = 0;
@@ -77,7 +78,7 @@ function openCard(event) {
 		resetTimer = 1;
 	}
 	if (openCards.length > 1) {
-		return true;
+		return;
 	}
 	if (event.target.tagName === 'LI') {
 		if(!event.target.classList.contains('open')) {
